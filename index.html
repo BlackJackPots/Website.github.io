@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apple Music UI Clone</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+      overflow: hidden;
+    }
+    .screen {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 90px;
+    }
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+    .card {
+      width: 180px;
+      height: 240px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-right: 20px;
+      padding: 20px;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .friends {
+      background: linear-gradient(135deg, #2948ff, #396afc);
+    }
+    .getup {
+      background: linear-gradient(135deg, #f77062, #fe5196);
+    }
+    .mini-player {
+      position: fixed;
+      bottom: 90px;
+      left: 10px;
+      right: 10px;
+      height: 60px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      transition: all 0.3s ease;
+    }
+    .mini-player img {
+      border-radius: 12px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .mini-info {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    .mini-info .text {
+      color: #000;
+      font-weight: bold;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 10px;
+      right: 10px;
+      height: 60px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(20px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .bottom-nav .icon {
+      text-align: center;
+      flex: 1;
+      font-size: 12px;
+      color: #000;
+    }
+    .bottom-nav .icon.active {
+      color: #ff2d55;
+      font-weight: bold;
+    }
+    .bottom-nav .icon span {
+      display: block;
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="content">
+      <div class="card friends">Friends Mix</div>
+      <div class="card getup">Get Up Mix</div>
+    </div>
+    <div class="mini-player">
+      <div class="mini-info">
+        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/47/b2/5b/47b25ba7-eeb6-c5ea-5bdf-983b0ab35349/5056167124436_cover.jpg/100x100bb.jpg" alt="cover">
+        <div class="text">
+          <div>All Of Me</div>
+          <div style="font-size: 12px; font-weight: normal;">Nao</div>
+        </div>
+      </div>
+      <div>
+        <span>▶️</span>
+        <span>⏭️</span>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="icon active">
+        <span>🏠</span>
+        Home
+      </div>
+      <div class="icon">
+        <span>🔄</span>
+        New
+      </div>
+      <div class="icon">
+        <span>🎧</span>
+        Radio
+      </div>
+      <div class="icon">
+        <span>🎵</span>
+        Library
+      </div>
+      <div class="icon">
+        <span>🔍</span>
+        Search
+      </div>
+    </div>
+  </div>
+</body>
+        </html>
