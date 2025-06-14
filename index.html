@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple Music UI Clone</title>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: #f0f0f3;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+    .container {
+      padding: 20px;
+      padding-bottom: 200px;
+    }
+    .card {
+      width: 90%;
+      height: 200px;
+      border-radius: 20px;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .friends {
+      background: linear-gradient(135deg, #2948ff, #396afc);
+    }
+    .getup {
+      background: linear-gradient(135deg, #f77062, #fe5196);
+    }
+    .mini-player {
+      position: fixed;
+      bottom: 90px;
+      left: 15px;
+      right: 15px;
+      height: 65px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(25px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    .mini-info {
+      display: flex;
+      align-items: center;
+    }
+    .mini-info img {
+      height: 50px;
+      width: 50px;
+      border-radius: 12px;
+      margin-right: 12px;
+    }
+    .mini-info .text {
+      font-size: 15px;
+      color: black;
+    }
+    .mini-info .text small {
+      display: block;
+      color: #333;
+      font-size: 12px;
+    }
+    .mini-controls button {
+      background: none;
+      border: none;
+      font-size: 20px;
+      margin-left: 10px;
+      cursor: pointer;
+      color: #000;
+    }
+    .bottom-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 15px;
+      right: 15px;
+      height: 65px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(25px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    .nav-icon {
+      text-align: center;
+      flex: 1;
+    }
+    .nav-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: #000;
+    }
+    .nav-label {
+      font-size: 10px;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card friends">Friends Mix</div>
+    <div class="card getup">Get Up Mix</div>
+    <div class="card friends">Chill Mix</div>
+    <div class="card getup">Workout Mix</div>
+  </div>  <div class="mini-player">
+    <div class="mini-info">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/47/b2/5b/47b25ba7-eeb6-c5ea-5bdf-983b0ab35349/5056167124436_cover.jpg/100x100bb.jpg" alt="cover">
+      <div class="text">
+        All Of Me
+        <small>Nao</small>
+      </div>
+    </div>
+    <div class="mini-controls">
+      <button>&#9654;</button>
+      <button>&#9193;</button>
+    </div>
+  </div>  <div class="bottom-nav">
+    <div class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z"/></svg>
+      <div class="nav-label">Home</div>
+    </div>
+    <div class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/></svg>
+      <div class="nav-label">New</div>
+    </div>
+    <div class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg>
+      <div class="nav-label">Radio</div>
+    </div>
+    <div class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/></svg>
+      <div class="nav-label">Library</div>
+    </div>
+    <div class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 21l-6-6M11 18a7 7 0 100-14 7 7 0 000 14z"/></svg>
+      <div class="nav-label">Search</div>
+    </div>
+  </div>
+</body>
+</html>
