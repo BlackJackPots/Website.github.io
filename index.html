@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iOS 26 Music UI Clone</title>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'SF Pro Display', sans-serif;
+    }body {
+  height: 300vh;
+  background: linear-gradient(to bottom, #f5f5f7, #dcdce0);
+  overflow-y: scroll;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.product {
+  background: white;
+  border-radius: 20px;
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.bottom-bar-wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  border-radius: 40px;
+  padding: 0.5rem;
+  width: calc(100% - 40px);
+  max-width: 400px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+  transition: background-color 0.4s ease-in-out;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 0.7rem 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.tab svg {
+  width: 24px;
+  height: 24px;
+  transition: fill 0.4s ease-in-out;
+}
+
+.tab:not(.active).light-mode svg {
+  fill: black;
+}
+
+.tab:not(.active).dark-mode svg {
+  fill: white;
+}
+
+.tab.active svg {
+  fill: red;
+}
+
+.selector {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 25%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 40px;
+  backdrop-filter: blur(30px);
+  z-index: -1;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.search-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.3);
+  margin-left: 10px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.search-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.search-btn:active {
+  transform: rotateY(180deg);
+}
+
+@media (max-width: 768px) {
+  .bottom-bar-wrapper {
+    bottom: 10px;
+    width: calc(100% - 20px);
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="product">
+      <img src="https://upload.wikimedia.org/wikipedia/en/b/b0/Drake_-_Scary_Hours_3.png" alt="Drake Album">
+    </div>
+    <div class="product">
+      <img src="https://upload.wikimedia.org/wikipedia/en/e/e1/Travis_Scott_-_Utopia.png" alt="Travis Scott Album">
+    </div>
+    <div class="product">
+      <img src="https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Midnights.png" alt="Taylor Swift Album">
+    </div>
+  </div>  <div class="bottom-bar-wrapper" id="bottomBar">
+    <div class="selector" id="selector"></div>
+    <div class="tab active" onclick="selectTab(0)">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 9.5l9-7 9 7v11a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20.5v-11z" />
+      </svg>
+    </div>
+    <div class="tab" onclick="selectTab(1)">
+      <svg viewBox="0 0 24 24">
+        <path d="M4 4h16v4H4V4zm0 6h10v4H4v-4zm0 6h16v4H4v-4z" />
+      </svg>
+    </div>
+    <div class="tab" onclick="selectTab(2)">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+      </svg>
+    </div>
+    <div class="search-btn" onclick="handleSearchClick()">
+      <svg viewBox="0 0 24 24">
+        <path d="M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm6.32 12.9l4.38 4.4-1.42 1.4-4.4-4.38a9.9 9.9 0 0 1-1.48 0.1 10 10 0 1 1 2.92-1.52z" />
+      </svg>
+    </div>
+  </div>  <script>
+    const selector = document.getElementById('selector');
+    const tabs = document.querySelectorAll('.tab');
+    const bottomBar = document.getElementById('bottomBar');
+
+    function selectTab(index) {
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle('active', i === index);
+      });
+      selector.style.transform = `translateX(${index * 100}%)`;
+    }
+
+    function handleSearchClick() {
+      alert('🔍 Search Triggered! Simulate Apple Search...');
+    }
+
+    function updateTabColors() {
+      const isLight = window.getComputedStyle(bottomBar).backgroundColor.includes('255');
+      tabs.forEach(tab => {
+        if (!tab.classList.contains('active')) {
+          tab.classList.remove('light-mode', 'dark-mode');
+          tab.classList.add(isLight ? 'dark-mode' : 'light-mode');
+        }
+      });
+    }
+
+    const observer = new MutationObserver(updateTabColors);
+    observer.observe(bottomBar, { attributes: true, attributeFilter: ['style'] });
+
+    window.addEventListener('scroll', updateTabColors);
+    window.addEventListener('load', updateTabColors);
+  </script></body>
+</html>
