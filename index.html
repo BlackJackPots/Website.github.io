@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Liquid Glass | Premium Apparel</title>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0071e3;
+      --primary-light: #2997ff;
+      --white: #ffffff;
+      --black: #1d1d1f;
+      --gray: #86868b;
+      --gray-light: #f5f5f7;
+      --red: #ff3b30;
+      --green: #34c759;
+      --yellow: #ffcc00;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'SF Pro Display', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: var(--gray-light);
+      overflow-x: hidden;
+      width: 100vw;
+      min-height: 100vh;
+      position: relative;
+      color: var(--black);
+      perspective: 1000px;
+    }
+    
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.5s ease;
+    }
+    
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(45deg, #0071e3, #34c759);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+    }
+    
+    /* Sections */
+    .section {
+      width: 100%;
+      padding: 5rem 1rem 2rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: none;
+    }
+    
+    .section.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    
+    /* Liquid Glass Cards */
+    .card {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31,38,135,0.15);
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      transform-style: preserve-3d;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(31,38,135,0.25);
+    }
+    
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    
+    .card .info {
+      padding: 1.2rem;
+      transform: translateZ(30px);
+    }
+    
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card p {
+      font-size: 0.95rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+    
+    .price {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    /* 3D Parallax Container */
+    .parallax-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: all 0.1s ease-out;
+    }
+    
+    /* Liquid Glass Bottom Bar */
+    .bottom-bar-wrapper {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 40px;
+      padding: 0.5rem;
+      width: calc(100% - 40px);
+      max-width: 320px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+      z-index: 100;
+    }
+    
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.6rem 0;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .tab svg {
+      width: 24px;
+      height: 24px;
+      transition: all 0.3s ease-in-out;
+      fill: var(--black);
+    }
+    
+    .tab.active svg {
+      fill: var(--primary) !important;
+      transform: translateY(-5px);
+    }
+    
+    .selector {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 33.33%;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 40px;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: -1;
+      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    /* Enhanced Apple-like Search */
+    .search-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 100px;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+      transition: all 0.3s ease-in-out;
+      z-index: 99;
+    }
+    
+    .search-btn svg {
+      width: 26px;
+      height: 26px;
+      transition: all 0.3s ease-in-out;
+      fill: var(--black);
+    }
+    
+    .search-btn.active {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    
+    .search-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .search-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .search-box {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+      width: 85%;
+      max-width: 320px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .search-overlay.active .search-box {
+      transform: translateY(0);
+    }
+    
+    .search-box input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 1.1rem;
+      padding: 0.5rem 30px 0.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .search-close {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.5rem;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+    
+    .search-close:hover {
+      opacity: 1;
+    }
+    
+    .search-close::before,
+    .search-close::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: var(--black);
+      transform-origin: center;
+    }
+    
+    .search-close::before {
+      transform: rotate(45deg);
+    }
+    
+    .search-close::after {
+      transform: rotate(-45deg);
+    }
+    
+    /* Apple-like 3D Wallpaper Effect */
+    .wallpaper-effect {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #f5f5f7, #dfe3e8);
+      z-index: -1;
+      transition: transform 0.1s ease-out;
+    }
+    
+    /* Featured Section */
+    .featured-card {
+      width: 100%;
+      margin-bottom: 2rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31,38,135,0.15);
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      position: relative;
+    }
+    
+    .featured-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .featured-info {
+      padding: 1.5rem;
+      position: relative;
+      z-index: 2;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    
+    .featured-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 3;
+    }
+    
+    /* Color Probe for Dynamic UI */
+    .probe {
+      position: fixed;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .scale-in {
+      animation: scaleIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 400px) {
+      .section {
+        padding: 4rem 1rem 2rem;
+      }
+      
+      .card h3 {
+        font-size: 1.1rem;
+      }
+      
+      .card p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 3D Wallpaper Effect -->
+  <div class="wallpaper-effect" id="wallpaper"></div>
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">Liquid Glass</div>
+    <div class="header-icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm6.32 12.9l4.38 4.4-1.42 1.4-4.4-4.38a9.9 9.9 0 0 1-1.48 0.1 10 10 0 1 1 2.92-1.52z"/>
+      </svg>
+    </div>
+  </header>
+  
+  <!-- Home Section -->
+  <section class="section active" id="home">
+    <div class="featured-card floating">
+      <span class="featured-badge">New Release</span>
+      <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Liquid Glass Hoodie">
+      <div class="featured-info">
+        <h3>Liquid Glass Hoodie</h3>
+        <p>Experience the future of wearable technology with our color-changing fabric</p>
+        <div class="price">$89.99</div>
+      </div>
+    </div>
+    
+    <div class="card scale-in" style="animation-delay: 0.1s">
+      <div class="parallax-container">
+        <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Temp-Reactive Mug">
+        <div class="info">
+          <h3>Temp-Reactive Mug</h3>
+          <p>Changes design based on liquid temperature</p>
+          <div class="price">$34.99</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card scale-in" style="animation-delay: 0.2s">
+      <div class="parallax-container">
+        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Glow Hoodie">
+        <div class="info">
+          <h3>Glow in Dark Hoodie</h3>
+          <p>Phosphorescent technology for night visibility</p>
+          <div class="price">$79.99</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Shop Section -->
+  <section class="section" id="shop">
+    <div class="card scale-in" style="animation-delay: 0.1s">
+      <div class="parallax-container">
+        <img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Reflective Jacket">
+        <div class="info">
+          <h3>Reflective Jacket</h3>
+          <p>High-visibility for night safety</p>
+          <div class="price">$129.99</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card scale-in" style="animation-delay: 0.2s">
+      <div class="parallax-container">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Thermal T-Shirt">
+        <div class="info">
+          <h3>Thermal T-Shirt</h3>
+          <p>Adapts to body temperature</p>
+          <div class="price">$49.99</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card scale-in" style="animation-delay: 0.3s">
+      <div class="parallax-container">
+        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Smart Beanie">
+        <div class="info">
+          <h3>Smart Beanie</h3>
+          <p>Built-in headphones and temperature control</p>
+          <div class="price">$59.99</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Discover Section -->
+  <section class="section" id="discover">
+    <div class="featured-card">
+      <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tech Collection">
+      <div class="featured-info">
+        <h3>Tech Collection</h3>
+        <p>Explore our innovative wearable technology line</p>
+      </div>
+    </div>
+    
+    <div class="card scale-in" style="animation-delay: 0.1s">
+      <div class="parallax-container">
+        <img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Summer Vibes">
+        <div class="info">
+          <h3>Summer Vibes</h3>
+          <p>Lightweight and breathable collection</p>
+          <div class="price">From $39.99</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Bottom Bar -->
+  <div class="bottom-bar-wrapper" id="bottomBar">
+    <div class="selector" id="selector"></div>
+    <div class="tab active" onclick="switchSection('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5l9-7 9 7v11a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20.5v-11z"/></svg>
+    </div>
+    <div class="tab" onclick="switchSection('shop')">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v4H4V4zm0 6h10v4H4v-4zm0 6h16v4H4v-4z"/></svg>
+    </div>
+    <div class="tab" onclick="switchSection('discover')">
+      <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
+    </div>
+  </div>
+  
+  <!-- Search Button -->
+  <div class="search-btn" id="searchBtn" onclick="toggleSearch()">
+    <svg viewBox="0 0 24 24">
+      <path d="M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm6.32 12.9l4.38 4.4-1.42 1.4-4.4-4.38a9.9 9.9 0 0 1-1.48 0.1 10 10 0 1 1 2.92-1.52z"/>
+    </svg>
+  </div>
+  
+  <!-- Enhanced Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-box">
+      <div class="search-close" onclick="toggleSearch()"></div>
+      <input type="text" placeholder="Search products..." autofocus>
+    </div>
+  </div>
+  
+  <!-- Color Probe -->
+  <div class="probe" id="colorProbe"></div>
+  
+  <script>
+    // Section Switching
+    function switchSection(sectionId) {
+      // Update tabs
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      event.currentTarget.classList.add('active');
+      
+      // Move selector
+      const index = Array.from(document.querySelectorAll('.tab')).indexOf(event.currentTarget);
+      document.getElementById('selector').style.transform = `translateX(${index * 100}%)`;
+      
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+      
+      // Re-run color detection
+      updateColors();
+    }
+    
+    // Enhanced Search Toggle
+    function toggleSearch() {
+      const overlay = document.getElementById('searchOverlay');
+      const btn = document.getElementById('searchBtn');
+      
+      overlay.classList.toggle('active');
+      btn.classList.toggle('active');
+      
+      if (overlay.classList.contains('active')) {
+        setTimeout(() => {
+          overlay.querySelector('input').focus();
+        }, 300);
+      }
+    }
+    
+    // Apple-like 3D Wallpaper Effect
+    const wallpaper = document.getElementById('wallpaper');
+    
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      wallpaper.style.transform = `translateX(${(x - 0.5) * 20}px) translateY(${(y - 0.5) * 20}px)`;
+    });
+    
+    // 3D Card Hover Effect
+    document.querySelectorAll('.parallax-container').forEach(container => {
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const angleX = (y - centerY) / 20;
+        const angleY = (centerX - x) / 20;
+        
+        container.parentElement.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+        container.querySelector('img').style.transform = `translateX(${(x - centerX) / 20}px) translateY(${(y - centerY) / 20}px)`;
+      });
+      
+      container.addEventListener('mouseleave', () => {
+        container.parentElement.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        container.querySelector('img').style.transform = 'translateX(0) translateY(0)';
+      });
+    });
+    
+    // Dynamic UI Color Adjustment
+    function updateColors() {
+      const probe = document.getElementById('colorProbe');
+      const rect = probe.getBoundingClientRect();
+      const x = rect.left + 0.5;
+      const y = rect.top + 0.5;
+      const el = document.elementFromPoint(x, y);
+      if (!el) return;
+      
+      const bg = window.getComputedStyle(el).backgroundColor;
+      const rgb = bg.match(/\d+/g);
+      if (!rgb) return;
+      
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      const isLight = brightness > 160;
+      
+      // Update tab icons
+      document.querySelectorAll('.tab:not(.active) svg').forEach(svg => {
+        svg.style.fill = isLight ? 'var(--black)' : 'var(--white)';
+      });
+      
+      // Update search button
+      document.querySelector('.search-btn svg').style.fill = isLight ? 'var(--black)' : 'var(--white)';
+      
+      // Update header icon
+      document.querySelector('.header-icon').style.color = isLight ? 'var(--black)' : 'var(--white)';
+      
+      // Update header background
+      document.querySelector('.header').style.background = isLight ? 
+        'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)';
+    }
+    
+    // Initialize
+    window.addEventListener('scroll', () => requestAnimationFrame(updateColors));
+    window.addEventListener('load', updateColors);
+    
+    // Add scale-in animation to cards when they come into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('scale-in');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.card').forEach(card => {
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
