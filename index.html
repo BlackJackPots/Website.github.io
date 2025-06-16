@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Liquid Glass | Premium Apparel</title>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0071e3;
+      --primary-light: #2997ff;
+      --white: #ffffff;
+      --black: #1d1d1f;
+      --gray: #86868b;
+      --gray-light: #f5f5f7;
+      --red: #ff3b30;
+      --green: #34c759;
+      --yellow: #ffcc00;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'SF Pro Display', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: var(--gray-light);
+      overflow-x: hidden;
+      max-width: 480px;
+      margin: auto;
+      min-height: 300vh;
+      position: relative;
+      color: var(--black);
+    }
+    
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(45deg, #0071e3, #34c759);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .header-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 6rem 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0071e3, #34c759);
+      opacity: 0.1;
+      z-index: -1;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #0071e3, #34c759);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    /* Button Styles */
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      color: var(--primary);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255,255,255,1);
+      transform: translateY(-2px);
+    }
+    
+    /* Categories */
+    .categories {
+      padding: 2rem 1.5rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .section-link {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .category-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+    
+    .category-image {
+      height: 120px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .category-info {
+      padding: 1rem;
+    }
+    
+    .category-info h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .category-info p {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    /* Featured Products */
+    .featured {
+      padding: 2rem 1.5rem;
+    }
+    
+    .product-slider {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+    }
+    
+    .product-slider::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .product-card {
+      min-width: 240px;
+      scroll-snap-align: start;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+    
+    .product-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--red);
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .product-info {
+      padding: 1.2rem;
+    }
+    
+    .product-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .product-info p {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+    
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .product-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .btn-small {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    /* Collections */
+    .collections {
+      padding: 2rem 1.5rem;
+    }
+    
+    .collection-card {
+      height: 200px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    
+    .collection-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .collection-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: white;
+    }
+    
+    .collection-overlay h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .collection-overlay p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      padding: 2rem 1.5rem;
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(10px);
+      margin: 2rem 0;
+      border-radius: 16px;
+    }
+    
+    .testimonial-slider {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+    }
+    
+    .testimonial-slider::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .testimonial-card {
+      min-width: 280px;
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    
+    .testimonial-rating {
+      color: var(--yellow);
+      margin-bottom: 1rem;
+    }
+    
+    .testimonial-text {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .author-info h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+    
+    .author-info p {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    
+    /* Newsletter */
+    .newsletter {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: linear-gradient(135deg, #0071e3, #34c759);
+      color: white;
+      border-radius: 16px;
+      margin: 2rem 1.5rem;
+    }
+    
+    .newsletter h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .newsletter p {
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .newsletter-input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: none;
+      border-radius: 50px 0 0 50px;
+      font-size: 1rem;
+      outline: none;
+    }
+    
+    .newsletter-btn {
+      padding: 0.8rem 1.5rem;
+      background: var(--black);
+      color: white;
+      border: none;
+      border-radius: 0 50px 50px 0;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    /* Quick Cart */
+    .quick-cart {
+      position: fixed;
+      bottom: -400px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 440px;
+      background: white;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+      z-index: 999;
+      transition: bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      padding: 1.5rem;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .quick-cart.active {
+      bottom: 80px;
+    }
+    
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cart-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--gray);
+      cursor: pointer;
+    }
+    
+    .cart-items {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .cart-item-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    
+    .cart-item-details {
+      flex: 1;
+    }
+    
+    .cart-item-title {
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+    
+    .cart-item-price {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 0.5rem;
+    }
+    
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .quantity-btn {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: var(--gray-light);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .quantity {
+      width: 30px;
+      text-align: center;
+    }
+    
+    .remove-item {
+      margin-left: auto;
+      color: var(--red);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .cart-summary {
+      border-top: 1px solid rgba(0,0,0,0.05);
+      padding-top: 1rem;
+    }
+    
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .checkout-btn:hover {
+      background: var(--primary-light);
+    }
+    
+    /* Bottom Bar */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(20px);
+      padding: 0.8rem 0;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      z-index: 900;
+    }
+    
+    .tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+      color: var(--gray);
+      transition: all 0.3s ease;
+    }
+    
+    .tab.active {
+      color: var(--primary);
+    }
+    
+    .tab-icon {
+      font-size: 1.2rem;
+    }
+    
+    .tab-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+    
+    .cart-tab {
+      position: relative;
+    }
+    
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--red);
+      color: white;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 600;
+    }
+    
+    /* Product Detail Modal */
+    .product-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    .product-modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      max-width: 440px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalFadeIn 0.4s ease;
+    }
+    
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.1);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+    }
+    
+    .modal-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+    }
+    
+    .modal-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .modal-price {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .modal-description {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: var(--gray);
+    }
+    
+    .modal-options {
+      margin-bottom: 2rem;
+    }
+    
+    .option-title {
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+    
+    .option-buttons {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    
+    .option-btn {
+      padding: 0.6rem 1rem;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .option-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .add-to-cart {
+      flex: 1;
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .add-to-cart:hover {
+      background: var(--primary-light);
+    }
+    
+    .wishlist-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--gray-light);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 5.5rem;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,113,227,0.3);
+      cursor: pointer;
+      z-index: 800;
+      transition: all 0.3s ease;
+    }
+    
+    .fab:hover {
+      transform: scale(1.1);
+    }
+    
+    .fab-icon {
+      font-size: 1.5rem;
+    }
+    
+    /* Liquid Glass Effects */
+    .liquid-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31,38,135,0.15);
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    .liquid-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(31,38,135,0.25);
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 400px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* Color Probe for Dynamic UI */
+    .probe {
+      position: fixed;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header liquid-card">
+    <div class="logo">Liquid Glass</div>
+    <div class="header-actions">
+      <button class="header-icon">
+        <i class="fas fa-search"></i>
+      </button>
+      <button class="header-icon">
+        <i class="fas fa-user"></i>
+      </button>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <h1>Wear the Future</h1>
+    <p>Premium hoodies and mugs with liquid glass technology that adapts to your environment</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary">Shop Now</button>
+      <button class="btn btn-secondary">Learn More</button>
+    </div>
+  </section>
+  
+   <!-- Categories -->
+  <section class="categories">
+    <h2 class="section-title">Shop by Category <a href="#" class="section-link">See All</a></h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="category-info">
+          <h3>Hoodies</h3>
+          <p>Ultra-comfortable & stylish</p>
+        </div>
+      </div>
+      <div class="category-card">
+        <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1517256064527-09c73fc73e38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="category-info">
+          <h3>Mugs</h3>
+          <p>Temperature-reactive designs</p>
+        </div>
+      </div>
+      <div class="category-card">
+        <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="category-info">
+          <h3>Accessories</h3>
+          <p>Complete your look</p>
+        </div>
+      </div>
+      <div class="category-card">
+        <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="category-info">
+          <h3>New Arrivals</h3>
+          <p>Fresh from the lab</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Featured Products -->
+  <section class="featured">
+    <h2 class="section-title">Featured Products</h2>
+    <div class="product-slider">
+      <div class="product-card" onclick="openProductModal('liquid-hoodie')">
+        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+          <span class="product-badge">New</span>
+        </div>
+        <div class="product-info">
+          <h3>Liquid Glass Hoodie</h3>
+          <p>Color-changing fabric technology</p>
+          <div class="product-price">$89.99</div>
+          <div class="product-actions">
+            <button class="btn btn-small btn-secondary">Details</button>
+            <button class="btn btn-small btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" onclick="openProductModal('temp-mug')">
+        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1517256064527-09c73fc73e38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+          <span class="product-badge">Best Seller</span>
+        </div>
+        <div class="product-info">
+          <h3>Temp-Reactive Mug</h3>
+          <p>Changes design with temperature</p>
+          <div class="product-price">$34.99</div>
+          <div class="product-actions">
+            <button class="btn btn-small btn-secondary">Details</button>
+            <button class="btn btn-small btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" onclick="openProductModal('glow-hoodie')">
+        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+          <span class="product-badge">Limited</span>
+        </div>
+        <div class="product-info">
+          <h3>Glow in Dark Hoodie</h3>
+          <p>Phosphorescent technology</p>
+          <div class="product-price">$79.99</div>
+          <div class="product-actions">
+            <button class="btn btn-small btn-secondary">Details</button>
+            <button class="btn btn-small btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Collections -->
+  <section class="collections">
+    <h2 class="section-title">Collections</h2>
+    <div class="collection-card">
+      <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tech Collection" class="collection-image">
+      <div class="collection-overlay">
+        <h3>Tech Collection</h3>
+        <p>Wearable technology meets fashion</p>
+      </div>
+    </div>
+    <div class="collection-card">
+      <img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Summer Vibes" class="collection-image">
+      <div class="collection-overlay">
+        <h3>Summer Vibes</h3>
+        <p>Lightweight and breathable</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials -->
+  <section class="testimonials liquid-card">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="testimonial-slider">
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">The Liquid Glass Hoodie is incredible! It actually changes color based on temperature and light. I've never owned anything like it.</p>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J." class="testimonial-avatar">
+          <div class="author-info">
+            <h4>Sarah J.</h4>
+            <p>Verified Buyer</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">The temp-reactive mug is my new favorite. Watching the design change as I pour hot coffee is magical. Worth every penny!</p>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="testimonial-avatar">
+          <div class="author-info">
+            <h4>Michael T.</h4>
+            <p>Verified Buyer</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+        <p class="testimonial-text">The quality is outstanding. The hoodie is so comfortable and the technology actually works. Can't wait to buy more!</p>
+        <div class="testimonial-author">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jessica L." class="testimonial-avatar">
+          <div class="author-info">
+            <h4>Jessica L.</h4>
+            <p>Verified Buyer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter -->
+  <section class="newsletter liquid-card floating">
+    <h2>Join Our Newsletter</h2>
+    <p>Get exclusive offers and be the first to know about new products</p>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Your email address" class="newsletter-input" required>
+      <button type="submit" class="newsletter-btn">Subscribe</button>
+    </form>
+  </section>
+  
+  <!-- Quick Cart -->
+  <div class="quick-cart" id="quickCart">
+    <div class="cart-header">
+      <h3 class="cart-title">Your Cart</h3>
+      <button class="close-cart" onclick="toggleCart()">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <!-- Cart items will be added here dynamically -->
+      <div class="cart-item">
+        <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Liquid Glass Hoodie" class="cart-item-image">
+        <div class="cart-item-details">
+          <h4 class="cart-item-title">Liquid Glass Hoodie</h4>
+          <p class="cart-item-price">$89.99</p>
+          <div class="cart-item-actions">
+            <button class="quantity-btn">-</button>
+            <span class="quantity">1</span>
+            <button class="quantity-btn">+</button>
+            <button class="remove-item"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cart-summary">
+      <div class="cart-total">
+        <span>Total</span>
+        <span>$89.99</span>
+      </div>
+      <button class="checkout-btn">Checkout</button>
+    </div>
+  </div>
+  
+  <!-- Bottom Navigation -->
+  <nav class="bottom-bar">
+    <div class="tab active">
+      <i class="fas fa-home tab-icon"></i>
+      <span class="tab-label">Home</span>
+    </div>
+    <div class="tab">
+      <i class="fas fa-search tab-icon"></i>
+      <span class="tab-label">Browse</span>
+    </div>
+    <div class="tab cart-tab" onclick="toggleCart()">
+      <i class="fas fa-shopping-bag tab-icon"></i>
+      <span class="tab-label">Cart</span>
+      <span class="cart-badge" id="cartBadge">1</span>
+    </div>
+    <div class="tab">
+      <i class="fas fa-user tab-icon"></i>
+      <span class="tab-label">Account</span>
+    </div>
+  </nav>
+  
+  <!-- Floating Action Button -->
+  <div class="fab" onclick="toggleCart()">
+    <i class="fas fa-shopping-bag fab-icon"></i>
+  </div>
+  
+  <!-- Product Detail Modal -->
+  <div class="product-modal" id="productModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeProductModal()">&times;</button>
+      <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Liquid Glass Hoodie" class="modal-image">
+      <div class="modal-body">
+        <h2 class="modal-title">Liquid Glass Hoodie</h2>
+        <div class="modal-price">$89.99</div>
+        <p class="modal-description">
+          Our signature Liquid Glass Hoodie features advanced color-changing technology that reacts to temperature and light. 
+          The ultra-soft fabric provides unmatched comfort while the cutting-edge design turns heads wherever you go.
+        </p>
+        <div class="modal-options">
+          <h3 class="option-title">Size</h3>
+          <div class="option-buttons">
+            <button class="option-btn">XS</button>
+            <button class="option-btn active">S</button>
+            <button class="option-btn">M</button>
+            <button class="option-btn">L</button>
+            <button class="option-btn">XL</button>
+          </div>
+        </div>
+        <div class="modal-options">
+          <h3 class="option-title">Color</h3>
+          <div class="option-buttons">
+            <button class="option-btn active">Midnight</button>
+            <button class="option-btn">Ocean</button>
+            <button class="option-btn">Forest</button>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="add-to-cart">Add to Cart</button>
+          <button class="wishlist-btn">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Color Probe -->
+  <div class="probe" id="colorProbe"></div>
+  
+  <script>
+    // Cart functionality
+    let cartOpen = false;
+    const cartItems = [
+      {
+        id: 'liquid-hoodie',
+        name: 'Liquid Glass Hoodie',
+        price: 89.99,
+        quantity: 1,
+        image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80'
+      }
+    ];
+    
+    function toggleCart() {
+      const cart = document.getElementById('quickCart');
+      cartOpen = !cartOpen;
+      
+      if (cartOpen) {
+        cart.classList.add('active');
+        updateCartDisplay();
+      } else {
+        cart.classList.remove('active');
+      }
+    }
+    
+    function updateCartDisplay() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      const cartBadge = document.getElementById('cartBadge');
+      
+      // Calculate total quantity
+      let totalQuantity = 0;
+      cartItems.forEach(item => {
+        totalQuantity += item.quantity;
+      });
+      
+      // Update badge
+      cartBadge.textContent = totalQuantity;
+      
+      // Update cart items display
+      cartItemsContainer.innerHTML = '';
+      
+      cartItems.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+          <div class="cart-item-details">
+            <h4 class="cart-item-title">${item.name}</h4>
+            <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+            <div class="cart-item-actions">
+              <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
+              <span class="quantity">${item.quantity}</span>
+              <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+              <button class="remove-item" onclick="removeItem('${item.id}')"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+      });
+      
+      // Update total
+      const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      document.querySelector('.cart-total span:last-child').textContent = `$${total.toFixed(2)}`;
+    }
+    
+    function updateQuantity(id, change) {
+      const item = cartItems.find(i => i.id === id);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity < 1) {
+          removeItem(id);
+        } else {
+          updateCartDisplay();
+        }
+      }
+    }
+    
+    function removeItem(id) {
+      const index = cartItems.findIndex(i => i.id === id);
+      if (index !== -1) {
+        cartItems.splice(index, 1);
+        updateCartDisplay();
+      }
+    }
+    
+    function addToCart(product) {
+      const existingItem = cartItems.find(i => i.id === product.id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cartItems.push({
+          ...product,
+          quantity: 1
+        });
+      }
+      
+      updateCartDisplay();
+      toggleCart();
+    }
+    
+    // Product modal functionality
+    function openProductModal(productId) {
+      const modal = document.getElementById('productModal');
+      modal.classList.add('active');
+      
+      // In a real app, we would fetch product details based on productId
+      // For demo, we're using hardcoded values
+    }
+    
+    function closeProductModal() {
+      const modal = document.getElementById('productModal');
+      modal.classList.remove('active');
+    }
+    
+    // Option button selection
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('option-btn')) {
+        const parent = e.target.parentElement;
+        const buttons = parent.querySelectorAll('.option-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+      }
+      
+      // Add to cart from modal
+      if (e.target.classList.contains('add-to-cart')) {
+        const product = {
+          id: 'liquid-hoodie',
+          name: 'Liquid Glass Hoodie',
+          price: 89.99,
+          image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80'
+        };
+        addToCart(product);
+        closeProductModal();
+      }
+    });
+    
+    // Tab navigation
+    const tabs = document.querySelectorAll('.bottom-bar .tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+    
+    // Dynamic UI color adjustment based on background
+    function updateColors() {
+      const probe = document.getElementById('colorProbe');
+      const rect = probe.getBoundingClientRect();
+      const x = rect.left + 0.5;
+      const y = rect.top + 0.5;
+      const el = document.elementFromPoint(x, y);
+      if (!el) return;
+      
+      const bg = window.getComputedStyle(el).backgroundColor;
+      const rgb = bg.match(/\d+/g);
+      if (!rgb) return;
+      
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      const isLight = brightness > 160;
+      
+      // Update bottom bar icons
+      document.querySelectorAll('.bottom-bar .tab:not(.active) .tab-icon').forEach(icon => {
+        icon.style.color = isLight ? 'var(--black)' : 'var(--white)';
+      });
+      
+      document.querySelectorAll('.bottom-bar .tab:not(.active) .tab-label').forEach(label => {
+        label.style.color = isLight ? 'var(--black)' : 'var(--white)';
+      });
+      
+      // Update header icons
+      document.querySelectorAll('.header-icon').forEach(icon => {
+        icon.style.color = isLight ? 'var(--black)' : 'var(--white)';
+      });
+      
+      // Update FAB icon
+      document.querySelector('.fab').style.color = isLight ? 'var(--white)' : 'var(--white)';
+    }
+    
+    window.addEventListener('scroll', () => requestAnimationFrame(updateColors));
+    window.addEventListener('load', updateColors);
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Newsletter form submission
+    document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.querySelector('input').value;
+      alert(`Thanks for subscribing with ${email}! You'll hear from us soon.`);
+      this.querySelector('input').value = '';
+    });
+  </script>
+</body>
+</html>?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=5
