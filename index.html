@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Liquid Glass | Premium Apparel</title>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0071e3;
+      --primary-light: #2997ff;
+      --white: #ffffff;
+      --black: #1d1d1f;
+      --gray: #86868b;
+      --gray-light: #f5f5f7;
+      --red: #ff3b30;
+      --green: #34c759;
+      --yellow: #ffcc00;
+      --transition: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'SF Pro Display', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: var(--gray-light);
+      overflow-x: hidden;
+      width: 100vw;
+      min-height: 100vh;
+      position: relative;
+      color: var(--black);
+    }
+    
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.5s var(--transition);
+    }
+    
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(45deg, #0071e3, #34c759);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Main Content Container */
+    .main-container {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Sections */
+    .section {
+      width: 100%;
+      padding: 5rem 1rem 6rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s var(--transition);
+      pointer-events: none;
+    }
+    
+    .section.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    
+    /* Featured Card */
+    .featured-card {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31,38,135,0.15);
+      overflow: hidden;
+      transition: all 0.5s var(--transition);
+      transform-style: preserve-3d;
+    }
+    
+    .featured-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(31,38,135,0.25);
+    }
+    
+    .featured-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s var(--transition);
+    }
+    
+    .featured-info {
+      padding: 1.5rem;
+    }
+    
+    .featured-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+    
+    /* Liquid Glass Cards */
+    .card {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31,38,135,0.15);
+      overflow: hidden;
+      transition: all 0.5s var(--transition);
+      transform-style: preserve-3d;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(31,38,135,0.25);
+    }
+    
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s var(--transition);
+    }
+    
+    .card .info {
+      padding: 1.2rem;
+    }
+    
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card p {
+      font-size: 0.95rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+    
+    .price {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    /* Apple-like Bottom Bar */
+    .bottom-bar-wrapper {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 40px;
+      padding: 0.5rem;
+      width: calc(100% - 40px);
+      max-width: 320px;
+      margin: 0 auto;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+      z-index: 100;
+    }
+    
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.6rem 0;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .tab svg {
+      width: 24px;
+      height: 24px;
+      transition: all 0.3s var(--transition);
+      fill: var(--black);
+    }
+    
+    .tab.active svg {
+      fill: var(--primary) !important;
+      transform: translateY(-3px);
+    }
+    
+    .selector {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 33.33%;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 40px;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: -1;
+      transition: transform 0.5s var(--transition);
+    }
+    
+    /* Premium Apple-like Search */
+    .search-container {
+      position: fixed;
+      top: -100px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s var(--transition);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .search-container.active {
+      top: 0;
+    }
+    
+    .search-input-container {
+      width: 85%;
+      max-width: 400px;
+      position: relative;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.5rem;
+      border-radius: 10px;
+      border: none;
+      background: rgba(0,0,0,0.03);
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s var(--transition);
+    }
+    
+    .search-input:focus {
+      background: rgba(0,0,0,0.05);
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+    }
+    
+    .search-close-btn {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.3s var(--transition);
+    }
+    
+    .search-close-btn:hover {
+      opacity: 1;
+    }
+    
+    .search-close-btn::before,
+    .search-close-btn::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: var(--black);
+      top: 50%;
+      left: 0;
+    }
+    
+    .search-close-btn::before {
+      transform: rotate(45deg);
+    }
+    
+    .search-close-btn::after {
+      transform: rotate(-45deg);
+    }
+    
+    /* Search Results */
+    .search-results {
+      position: fixed;
+      top: 100px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      z-index: 1000;
+      padding: 1rem;
+      overflow-y: auto;
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s var(--transition);
+    }
+    
+    .search-results.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .search-result-item {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      transition: background 0.3s var(--transition);
+    }
+    
+    .search-result-item:hover {
+      background: rgba(0,0,0,0.02);
+    }
+    
+    .search-result-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-right: 1rem;
+    }
+    
+    /* Color Probe for Dynamic UI */
+    .probe {
+      position: fixed;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s var(--transition) forwards;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 400px) {
+      .section {
+        padding: 4rem 1rem 5rem;
+      }
+      
+      .card h3 {
+        font-size: 1.1rem;
+      }
+      
+      .card p {
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* Loading Animation */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 1;
+      transition: opacity 0.5s var(--transition);
+    }
+    
+    .loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* Quick View Modal */
+    .quick-view-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 1002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--transition);
+    }
+    
+    .quick-view-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .quick-view-content {
+      background: white;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      padding: 1.5rem;
+      transform: translateY(20px);
+      transition: transform 0.3s var(--transition);
+      position: relative;
+    }
+    
+    .quick-view-modal.active .quick-view-content {
+      transform: translateY(0);
+    }
+    
+    .quick-view-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    /* Haptic Feedback */
+    @media (hover: hover) {
+      .tab, .card, .search-close-btn, .search-result-item {
+        transition: transform 0.1s;
+      }
+      
+      .tab:active, .card:active, .search-close-btn:active, .search-result-item:active {
+        transform: scale(0.95);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">Liquid Glass</div>
+  </header>
+  
+  <!-- Premium Apple-like Search -->
+  <div class="search-container" id="searchContainer">
+    <div class="search-input-container">
+      <svg viewBox="0 0 24 24" class="search-icon">
+        <path d="M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm6.32 12.9l4.38 4.4-1.42 1.4-4.4-4.38a9.9 9.9 0 0 1-1.48 0.1 10 10 0 1 1 2.92-1.52z"/>
+      </svg>
+      <input type="text" class="search-input" placeholder="Search products..." id="searchInput">
+      <div class="search-close-btn" id="searchCloseBtn"></div>
+    </div>
+  </div>
+  
+  <!-- Search Results -->
+  <div class="search-results" id="searchResults">
+    <div class="search-result-item">
+      <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" class="search-result-image">
+      <div>
+        <h4>Liquid Glass Hoodie</h4>
+        <p>$89.99</p>
+      </div>
+    </div>
+    <div class="search-result-item">
+      <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" class="search-result-image">
+      <div>
+        <h4>Temp-Reactive Mug</h4>
+        <p>$34.99</p>
+      </div>
+    </div>
+    <div class="search-result-item">
+      <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" class="search-result-image">
+      <div>
+        <h4>Glow in Dark Hoodie</h4>
+        <p>$79.99</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Quick View Modal -->
+  <div class="quick-view-modal" id="quickViewModal">
+    <div class="quick-view-content">
+      <div class="quick-view-close" id="quickViewClose">
+        <svg width="16" height="16" viewBox="0 0 24 24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </div>
+      <img src="" id="quickViewImage" style="width:100%;border-radius:12px;margin-bottom:1rem;">
+      <h3 id="quickViewTitle"></h3>
+      <p id="quickViewDescription"></p>
+      <div class="price" id="quickViewPrice"></div>
+    </div>
+  </div>
+  
+  <!-- Main Content Container -->
+  <div class="main-container">
+    <!-- Home Section -->
+    <section class="section active" id="homeSection">
+      <div class="featured-card floating">
+        <span class="featured-badge">New Release</span>
+        <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Liquid Glass Hoodie">
+        <div class="featured-info">
+          <h3>Liquid Glass Hoodie</h3>
+          <p>Color-changing fabric technology that adapts to your environment</p>
+          <div class="price">$89.99</div>
+        </div>
+      </div>
+      
+      <div class="card fade-in" style="animation-delay: 0.1s">
+        <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Temp-Reactive Mug">
+        <div class="info">
+          <h3>Temp-Reactive Mug</h3>
+          <p>Changes design based on liquid temperature</p>
+          <div class="price">$34.99</div>
+        </div>
+      </div>
+      
+      <div class="card fade-in" style="animation-delay: 0.2s">
+        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Glow Hoodie">
+        <div class="info">
+          <h3>Glow in Dark Hoodie</h3>
+          <p>Phosphorescent technology for night visibility</p>
+          <div class="price">$79.99</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Shop Section -->
+    <section class="section" id="shopSection">
+      <div class="featured-card">
+        <span class="featured-badge">Best Seller</span>
+        <img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Reflective Jacket">
+        <div class="featured-info">
+          <h3>Reflective Jacket</h3>
+          <p>High-visibility for night safety</p>
+          <div class="price">$129.99</div>
+        </div>
+      </div>
+      
+      <div class="card fade-in" style="animation-delay: 0.1s">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Thermal T-Shirt">
+        <div class="info">
+          <h3>Thermal T-Shirt</h3>
+          <p>Adapts to body temperature</p>
+          <div class="price">$49.99</div>
+        </div>
+      </div>
+      
+      <div class="card fade-in" style="animation-delay: 0.2s">
+        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Smart Beanie">
+        <div class="info">
+          <h3>Smart Beanie</h3>
+          <p>Built-in headphones and temperature control</p>
+          <div class="price">$59.99</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Discover Section -->
+    <section class="section" id="discoverSection">
+      <div class="featured-card">
+        <span class="featured-badge">Collection</span>
+        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tech Collection">
+        <div class="featured-info">
+          <h3>Tech Collection</h3>
+          <p>Explore our innovative wearable technology line</p>
+        </div>
+      </div>
+      
+      <div class="card fade-in" style="animation-delay: 0.1s">
+        <img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Summer Vibes">
+        <div class="info">
+          <h3>Summer Vibes</h3>
+          <p>Lightweight and breathable collection</p>
+          <div class="price">From $39.99</div>
+        </div>
+      </div>
+      
+      <div class="card fade-in" style="animation-delay: 0.2s">
+        <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Winter Collection">
+        <div class="info">
+          <h3>Winter Collection</h3>
+          <p>Thermal technology for cold weather</p>
+          <div class="price">From $59.99</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Bottom Bar -->
+  <div class="bottom-bar-wrapper" id="bottomBar">
+    <div class="selector" id="selector"></div>
+    <div class="tab active" onclick="switchSection('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5l9-7 9 7v11a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 20.5v-11z"/></svg>
+    </div>
+    <div class="tab" onclick="switchSection('shop')">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v4H4V4zm0 6h10v4H4v-4zm0 6h16v4H4v-4z"/></svg>
+    </div>
+    <div class="tab" onclick="switchSection('discover')">
+      <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
+    </div>
+  </div>
+  
+    <script>
+    // Loading Simulation
+    setTimeout(() => {
+      document.getElementById('loadingOverlay').classList.add('hidden');
+    }, 1500);
+    
+    // Section Switching
+    function switchSection(section) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+      });
+      
+      // Show selected section
+      document.getElementById(`${section}Section`).classList.add('active');
+      
+      // Update tabs
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Get index of clicked tab
+      const tabs = Array.from(document.querySelectorAll('.tab'));
+      const activeTab = event.currentTarget;
+      const index = tabs.indexOf(activeTab);
+      
+      // Move selector
+      document.getElementById('selector').style.transform = `translateX(${index * 100}%)`;
+      
+      // Set active tab
+      activeTab.classList.add('active');
+      
+      // Update colors
+      updateColors();
+    }
+    
+    // Premium Search Functionality
+    const searchContainer = document.getElementById('searchContainer');
+    const searchInput = document.getElementById('searchInput');
+    const searchCloseBtn = document.getElementById('searchCloseBtn');
+    const searchResults = document.getElementById('searchResults');
+    
+    // Toggle search
+    function toggleSearch() {
+      searchContainer.classList.toggle('active');
+      
+      if (searchContainer.classList.contains('active')) {
+        searchInput.focus();
+      } else {
+        searchResults.classList.remove('active');
+        searchInput.value = '';
+      }
+    }
+    
+    // Close search
+    searchCloseBtn.addEventListener('click', toggleSearch);
+    
+    // Search input events
+    searchInput.addEventListener('input', (e) => {
+      if (e.target.value.length > 0) {
+        searchResults.classList.add('active');
+      } else {
+        searchResults.classList.remove('active');
+      }
+    });
+    
+    // Quick View Modal
+    const quickViewModal = document.getElementById('quickViewModal');
+    const quickViewClose = document.getElementById('quickViewClose');
+    
+    function openQuickView(title, description, price, imageUrl) {
+      document.getElementById('quickViewTitle').textContent = title;
+      document.getElementById('quickViewDescription').textContent = description;
+      document.getElementById('quickViewPrice').textContent = price;
+      document.getElementById('quickViewImage').src = imageUrl;
+      quickViewModal.classList.add('active');
+    }
+    
+    quickViewClose.addEventListener('click', () => {
+      quickViewModal.classList.remove('active');
+    });
+    
+    // Set up quick view for all cards
+    document.querySelectorAll('.card, .featured-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const title = card.querySelector('h3').textContent;
+        const description = card.querySelector('p').textContent;
+        const price = card.querySelector('.price').textContent;
+        const imageUrl = card.querySelector('img').src;
+        openQuickView(title, description, price, imageUrl);
+      });
+    });
+    
+    // Set up search result clicks
+    document.querySelectorAll('.search-result-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const title = item.querySelector('h4').textContent;
+        const price = item.querySelector('p').textContent;
+        const imageUrl = item.querySelector('img').src;
+        openQuickView(title, 'Product details', price, imageUrl);
+        toggleSearch();
+      });
+    });
+    
+    // 3D Card Hover Effect
+    document.querySelectorAll('.card, .featured-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const angleX = (y - centerY) / 20;
+        const angleY = (centerX - x) / 20;
+        
+        card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-5px) scale(1.02)`;
+        card.querySelector('img').style.transform = `translateX(${(x - centerX) / 20}px) translateY(${(y - centerY) / 20}px)`;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        card.querySelector('img').style.transform = 'translateX(0) translateY(0)';
+      });
+    });
+    
+    // Dynamic UI Color Adjustment
+    function updateColors() {
+      const probe = document.getElementById('colorProbe');
+      const rect = probe.getBoundingClientRect();
+      const x = rect.left + 0.5;
+      const y = rect.top + 0.5;
+      const el = document.elementFromPoint(x, y);
+      if (!el) return;
+      
+      const bg = window.getComputedStyle(el).backgroundColor;
+      const rgb = bg.match(/\d+/g);
+      if (!rgb) return;
+      
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      const isLight = brightness > 160;
+      
+      // Update tab icons
+      document.querySelectorAll('.tab:not(.active) svg').forEach(svg => {
+        svg.style.fill = isLight ? 'var(--black)' : 'var(--white)';
+      });
+      
+      // Update header background
+      document.querySelector('.header').style.background = isLight ? 
+        'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)';
+    }
+    
+    // Initialize
+    window.addEventListener('scroll', () => requestAnimationFrame(updateColors));
+    window.addEventListener('load', updateColors);
+    
+    // Search activation on scroll
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop && st > 100) {
+        // Scrolling down
+        if (!searchContainer.classList.contains('active')) {
+          searchContainer.style.top = '-100px';
+        }
+      } else if (st < lastScrollTop && st < 100) {
+        // Scrolling up to top
+        searchContainer.style.top = '-100px';
+      }
+      lastScrollTop = st <= 0 ? 0 : st;
+    });
+    
+    // Activate search when clicking logo
+    document.querySelector('.logo').addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleSearch();
+    });
+  </script>
+</body>
+</html>
